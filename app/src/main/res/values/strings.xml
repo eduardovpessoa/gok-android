@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GoK - Digio App></string>
+
+    <string name="img_desc">Descrição da Imagem</string>
+    <string name="main_activity_title">GoK - Eduardo V. Pessoa</string>
+    <string name="user_welcome_title">Olá, Eduardo!</string>
+    <string name="sempre_it_logo_desc">Digio Logo</string>
+    <string name="txt_products">Produtos</string>
+    <string name="cash_logo">Cash Logo</string>
+    <string name="cash">Cash</string>
+    <string name="digio">digio</string>
+    <string name="try_again">Try Again</string>
+</resources>
