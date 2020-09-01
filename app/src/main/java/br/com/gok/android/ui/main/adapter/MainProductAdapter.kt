@@ -2,41 +2,48 @@ package br.com.gok.android.ui.main.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.gok.android.R
+import br.com.gok.android.databinding.MainAdapterProductsBinding
+import br.com.gok.android.repository.remote.model.Product
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.main_adapter_products.view.imgProduct
 
 class MainProductAdapter(private val context: Context) :
     RecyclerView.Adapter<MainProductAdapter.ViewItemHolder>() {
 
+    var products: List<Product> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewItemHolder {
-        val viewBinding: View =
-            LayoutInflater.from(context).inflate(R.layout.main_adapter_products, parent, false)
-        return ViewItemHolder(view)
+        val viewBinding: MainAdapterProductsBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.main_adapter_products, parent, false
+        )
+        return ViewItemHolder(viewBinding)
     }
 
     override fun getItemCount(): Int {
         return products.size
     }
 
-    class ViewItemHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.imgProduct
+    override fun onBindViewHolder(holder: ViewItemHolder, position: Int) {
+        holder.onBind(position)
     }
 
-    override fun onBindViewHolder(holder: ViewItemHolder, position: Int) {
-        val prod = products[position]
-        Glide.with(context).load(prod.imageURL).into(holder.image)
-        holder.image.setOnClickListener {
-            Toast.makeText(
-                context,
-                String.format("Name: %s\nDescription: %s", prod.name, prod.description),
-                Toast.LENGTH_SHORT
-            ).show()
+    fun setProductsData(products : List<Product>) {
+        this.products = products
+        notifyDataSetChanged()
+    }
+
+    inner class ViewItemHolder(private val viewBinding: MainAdapterProductsBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+
+        fun onBind(position: Int) {
+            val row = products[position]
+            viewBinding.products = row
+            Glide.with(context).load(products[position].imageURL)
+                .into(itemView.findViewById(R.id.imgBanner))
         }
     }
 }

@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.gok.android.R
 import br.com.gok.android.databinding.MainFragmentBinding
 import br.com.gok.android.ui.main.adapter.MainProductAdapter
 import br.com.gok.android.ui.main.adapter.MainSpotlightAdapter
+import com.bumptech.glide.Glide
+import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.main_fragment.imgCash
 import kotlinx.android.synthetic.main.main_fragment.recyclerProduct
 import kotlinx.android.synthetic.main.main_fragment.recyclerSpotlight
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -22,18 +24,19 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val productsViewModel by viewModel<MainViewModel>()
+    private val productsViewModel : MainViewModel by viewModel()
     private lateinit var productsAdapter: MainProductAdapter
     private lateinit var spotlightAdapter: MainSpotlightAdapter
-    private lateinit var dataBinding: MainFragmentBinding
+    private lateinit var mDataBinding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
-        val rootView = dataBinding.root
-        dataBinding.lifecycleOwner = this
+        mDataBinding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
+        val rootView = mDataBinding.root
+        mDataBinding.viewModel = productsViewModel
+        mDataBinding.lifecycleOwner = this
         return rootView
     }
 
@@ -41,25 +44,27 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setupSpotlightsAdapter()
         setupProductsAdapter()
-        dataBinding.viewModel = productsViewModel
         productsViewModel.getProducts()
         productsViewModel.products.observe(viewLifecycleOwner, Observer {
-            if (it!=null){
-              spotlightAdapter.setItems(it.spotlights)
-              productsAdapter.setItems(it.products)
+            if (it != null) {
+                spotlightAdapter.setSpotlightsData(it.spotlights)
+                productsAdapter.setProductsData(it.products)
+                Glide.with(this).load(it.cash.bannerURL).into(imgCash)
             }
         })
     }
 
-    private fun setupSpotlightsAdapter(){
+    private fun setupSpotlightsAdapter() {
         spotlightAdapter = MainSpotlightAdapter(requireContext())
-        recyclerSpotlight.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerSpotlight.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerSpotlight.adapter = spotlightAdapter
     }
 
-    private fun setupProductsAdapter(){
+    private fun setupProductsAdapter() {
         productsAdapter = MainProductAdapter(requireContext())
-        recyclerProduct.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerProduct.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerProduct.adapter = productsAdapter
     }
 }

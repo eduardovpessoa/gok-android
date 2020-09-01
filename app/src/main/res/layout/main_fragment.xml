@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="br.com.gok.android.ui.main.MainViewModel" />
+
     </data>
 
     <ScrollView xmlns:tools="http://schemas.android.com/tools"

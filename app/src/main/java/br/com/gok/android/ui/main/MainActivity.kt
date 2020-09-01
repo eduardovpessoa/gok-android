@@ -1,15 +1,11 @@
-package br.com.gok.android.ui
+package br.com.gok.android.ui.main
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.gok.android.R
-import br.com.gok.android.di.MainModule
-import br.com.gok.android.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
-
-    private val modules = listOf(MainModule.instance)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
