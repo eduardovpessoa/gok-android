@@ -11,9 +11,7 @@ import br.com.gok.android.R
 import br.com.gok.android.databinding.MainFragmentBinding
 import br.com.gok.android.ui.main.adapter.MainProductAdapter
 import br.com.gok.android.ui.main.adapter.MainSpotlightAdapter
-import com.bumptech.glide.Glide
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.main_fragment.imgCash
 import kotlinx.android.synthetic.main.main_fragment.recyclerProduct
 import kotlinx.android.synthetic.main.main_fragment.recyclerSpotlight
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,7 +33,6 @@ class MainFragment : Fragment() {
     ): View {
         mDataBinding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
         val rootView = mDataBinding.root
-        mDataBinding.viewModel = productsViewModel
         mDataBinding.lifecycleOwner = this
         return rootView
     }
@@ -44,25 +41,25 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setupSpotlightsAdapter()
         setupProductsAdapter()
+        mDataBinding.viewModel = productsViewModel
         productsViewModel.getProducts()
         productsViewModel.products.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 spotlightAdapter.setSpotlightsData(it.spotlights)
                 productsAdapter.setProductsData(it.products)
-                Glide.with(this).load(it.cash.bannerURL).into(imgCash)
             }
         })
     }
 
     private fun setupSpotlightsAdapter() {
-        spotlightAdapter = MainSpotlightAdapter(requireContext())
+        spotlightAdapter = MainSpotlightAdapter()
         recyclerSpotlight.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerSpotlight.adapter = spotlightAdapter
     }
 
     private fun setupProductsAdapter() {
-        productsAdapter = MainProductAdapter(requireContext())
+        productsAdapter = MainProductAdapter()
         recyclerProduct.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerProduct.adapter = productsAdapter

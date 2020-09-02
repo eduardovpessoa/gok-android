@@ -9,7 +9,7 @@ data class Spotlight(
     @SerializedName("name")
     val name: String,
     @SerializedName("bannerURL")
-    val imageURL: String,
+    val bannerURL: String,
     @SerializedName("description")
     val description: String
 ) : Parcelable

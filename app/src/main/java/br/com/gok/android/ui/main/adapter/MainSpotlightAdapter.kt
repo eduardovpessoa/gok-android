@@ -1,6 +1,5 @@
 package br.com.gok.android.ui.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.gok.android.R
 import br.com.gok.android.databinding.MainAdapterSpotlightsBinding
 import br.com.gok.android.repository.remote.model.Spotlight
-import com.bumptech.glide.Glide
 
-class MainSpotlightAdapter(private val context: Context) :
+class MainSpotlightAdapter :
     RecyclerView.Adapter<MainSpotlightAdapter.ViewItemHolder>() {
 
     var spotlights: List<Spotlight> = ArrayList()
@@ -31,7 +29,7 @@ class MainSpotlightAdapter(private val context: Context) :
         holder.onBind(position)
     }
 
-    fun setSpotlightsData(spotlights : List<Spotlight>) {
+    fun setSpotlightsData(spotlights: List<Spotlight>) {
         this.spotlights = spotlights
         notifyDataSetChanged()
     }
@@ -42,8 +40,6 @@ class MainSpotlightAdapter(private val context: Context) :
         fun onBind(position: Int) {
             val row = spotlights[position]
             viewBinding.spotlights = row
-            Glide.with(context).load(spotlights[position].imageURL)
-                .into(itemView.findViewById(R.id.imgBanner))
         }
     }
 }

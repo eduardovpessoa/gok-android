@@ -15,6 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:layout_marginStart="16dp">
 
         <androidx.cardview.widget.CardView
@@ -28,11 +29,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgBanner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@{spotlights.name}"/>
+                android:contentDescription="@{spotlights.name}"
+                app:src="@{spotlights.bannerURL}" />
 
         </androidx.cardview.widget.CardView>
 

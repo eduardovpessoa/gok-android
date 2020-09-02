@@ -8,7 +8,6 @@ import br.com.gok.android.repository.remote.api.DigioRepositoryImpl
 import br.com.gok.android.repository.remote.util.BaseResult
 import br.com.gok.android.repository.remote.model.dto.ProductsDTO
 import br.com.gok.android.repository.remote.util.SingleLiveEvent
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: DigioRepositoryImpl) : ViewModel() {

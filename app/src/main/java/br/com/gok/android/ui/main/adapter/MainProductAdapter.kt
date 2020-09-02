@@ -1,6 +1,5 @@
 package br.com.gok.android.ui.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.gok.android.R
 import br.com.gok.android.databinding.MainAdapterProductsBinding
 import br.com.gok.android.repository.remote.model.Product
-import com.bumptech.glide.Glide
 
-class MainProductAdapter(private val context: Context) :
+class MainProductAdapter :
     RecyclerView.Adapter<MainProductAdapter.ViewItemHolder>() {
 
     var products: List<Product> = ArrayList()
@@ -31,7 +29,7 @@ class MainProductAdapter(private val context: Context) :
         holder.onBind(position)
     }
 
-    fun setProductsData(products : List<Product>) {
+    fun setProductsData(products: List<Product>) {
         this.products = products
         notifyDataSetChanged()
     }
@@ -42,8 +40,6 @@ class MainProductAdapter(private val context: Context) :
         fun onBind(position: Int) {
             val row = products[position]
             viewBinding.products = row
-            Glide.with(context).load(products[position].imageURL)
-                .into(itemView.findViewById(R.id.imgBanner))
         }
     }
 }

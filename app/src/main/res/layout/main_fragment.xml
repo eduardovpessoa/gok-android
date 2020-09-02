@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -52,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:textColor="@color/colorDarkGray"
                 android:layout_marginEnd="16dp"
                 android:text="@string/user_welcome_title"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
@@ -83,6 +86,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/digio"
+                android:textColor="@color/colorBlue"
                 android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textStyle="bold"
                 android:visibility="@{viewModel.showError == null ? View.VISIBLE : View.GONE}"
@@ -106,7 +110,7 @@
                 app:layout_constraintStart_toEndOf="@+id/txtCashDescOne"
                 app:layout_constraintTop_toTopOf="@+id/txtCashDescOne" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgCash"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -118,7 +122,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCashDescOne" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCashDescOne"
+                app:src="@{viewModel.products.cash.bannerURL}" />
 
             <TextView
                 android:id="@+id/txtProducts"
